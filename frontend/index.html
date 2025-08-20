@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Analysis Viewer</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Optional: add left border accent for headings */
+    h1, h2, h3 {
+      border-left: 6px solid transparent;
+      padding-left: 0.5rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 p-6">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4">Stock Analysis</h1>
+
+    <div class="flex space-x-2 mb-4">
+      <input id="topic" type="text" placeholder="Enter stock symbol (e.g. AAPL)" 
+             class="flex-1 border rounded-lg px-3 py-2"/>
+      <button onclick="analyze()" 
+              class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+        Analyze
+      </button>
+    </div>
+
+    <div id="result" class="prose max-w-none bg-white p-4 rounded-lg shadow"></div>
+  </div>
+
+  <script>
+    async function analyze() {
+        const topic = document.getElementById("topic").value;
+
+        try {
+          const response = await fetch("/run_pipeline/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query: topic })
+          });
+
+          const data = await response.json();
+
+          let markdown = normalizeOutput(data);
+          document.getElementById("result").innerHTML = marked.parse(markdown);
+          colorHeadings(document.getElementById("result"));
+
+        } catch (error) {
+          document.getElementById("result").textContent = "❌ Error: " + error.message;
+        }
+    }
+    function normalizeOutput(resultObj) {
+        let out = resultObj?.result?.output;
+        if (typeof out !== "string") {
+          out = String(out ?? "");
+        }
+
+        // If backend returned a plot, render it
+        if (out.endsWith(".png") || out.includes("/static/plots/")) {
+          return `![Plot](${out})`;
+        }
+
+        // Otherwise handle as text/code
+        out = out.replace(/\\\\n/g, "\n").replace(/\\n/g, "\n");
+        return out;
+        }
+
+    function colorHeadings(container) {
+      const headings = container.querySelectorAll("h1, h2, h3");
+      headings.forEach(h => {
+        const text = h.textContent.toLowerCase();
+
+        if (text.includes("Recommendation")) {
+          h.classList.add("text-rose-600", "dark:text-rose-400");
+          h.style.borderLeftColor = "#fb7185";
+        } else if (text.includes("analysis") || text.includes("research") || text.includes("analyst")) {
+          h.classList.add("text-emerald-600", "dark:text-emerald-400");
+          h.style.borderLeftColor = "#34d399";
+        } else if (text.includes("data")) {
+          h.classList.add("text-sky-600", "dark:text-sky-400");
+          h.style.borderLeftColor = "#38bdf8";
+        } else if (text.includes("chart")) {
+          h.classList.add("text-indigo-600", "dark:text-indigo-400");
+          h.style.borderLeftColor = "#818cf8";
+        } else if (text.includes("code")) {
+          h.classList.add("text-fuchsia-600", "dark:text-fuchsia-400");
+          h.style.borderLeftColor = "#e879f9";
+        } else if (text.includes("limitation")) {
+          h.classList.add("text-amber-600", "dark:text-amber-400");
+          h.style.borderLeftColor = "#fbbf24";
+        } else if (text.includes("Summary") || text.includes("overview")) {
+          h.classList.add("text-blue-600", "dark:text-blue-400");
+          h.style.borderLeftColor = "#60a5fa";
+        } else {
+          h.classList.add("text-purple-600", "dark:text-purple-400");
+          h.style.borderLeftColor = "#a78bfa";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
