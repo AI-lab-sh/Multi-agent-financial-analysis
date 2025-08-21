@@ -8,7 +8,7 @@ langchain==0.1.0
 lpips==0.1.4
 matplotlib==3.8.1
 natsort==8.3.1
-omegaconf>=2.4.0
+omegaconf
 opencv-python==4.8.1.78
 pandas==2.1.1
 Pillow==10.1.0
