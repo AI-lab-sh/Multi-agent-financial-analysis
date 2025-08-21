@@ -4,7 +4,7 @@ from utils.logging import logger
 import yfinance as yf
 
 
-class CrawlerAgent:
+class Crawler:
     """
     Fetches market and financial data from multiple sources:
     Yahoo Finance, Alpha Vantage, Finnhub, and Google Finance (fallback).

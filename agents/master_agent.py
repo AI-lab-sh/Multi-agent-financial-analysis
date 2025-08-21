@@ -1,4 +1,4 @@
-from agents.crawler_agent import CrawlerAgent
+from agents.crawler import Crawler
 from agents.market_agent import MarketAgent
 from agents.research_agent import ResearchAgent
 from agents.analyst_agent import AnalystAgent
@@ -31,7 +31,7 @@ class MasterAgent:
 
         # Initialize agents
         self.resolver = ResolverAgent()
-        self.crawler = CrawlerAgent(alpha_key=self.alpha_key, finnhub_key=self.finnhub_key)
+        self.crawler = Crawler(alpha_key=self.alpha_key, finnhub_key=self.finnhub_key)
         self.market = MarketAgent()
         self.research = ResearchAgent()
         self.analyst = AnalystAgent()
@@ -101,7 +101,7 @@ class MasterAgent:
 
         return {
             "symbols": symbols,
-            "raw_data": raw_data,                  
+            # "raw_data": raw_data,                  
             "market_summary": market_summary,
             "research_summary": research_summary,
             "analysis": analysis,
