@@ -15,7 +15,7 @@ Pillow==10.1.0
 python-dotenv==1.0.1
 requests==2.31.0
 scikit-image==0.22.0
-scipy==1.11.1 --only-binary :all:
+scipy==1.11.2 --only-binary :all:
 tqdm==4.66.1
 transformers==4.34.0
 wandb==0.15.10
