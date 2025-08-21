@@ -2,7 +2,7 @@
 
 This project uses a multi-agent architecture to process user queries and generate intelligent recommendations. Below is a flowchart that illustrates the data flow between agents.
 
-## 📊 Flowchart
+## 📊 System Architecture
 
 ```mermaid
 graph LR
