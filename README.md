@@ -1,68 +1,36 @@
-A multi-agent financial analysis system built using LangChain and FastAPI. Users can input a ticker symbol or a natural language query like "oil industry" or "gold industry". The system orchestrates multiple agents to fetch, analyze, and provide actionable financial insights.# Multi-agent-financial-analysis
+# 🔍 System Architecture Overview
 
-🌟 Features
-Natural Language Processing: Accepts both ticker symbols and natural language queries (e.g., "oil industry", "tech stocks")
+This project uses a multi-agent architecture to process user queries and generate intelligent recommendations. Below is a flowchart that illustrates the data flow between agents.
 
-Multi-Agent Architecture: Specialized agents for each stage of financial analysis
+## 📊 Flowchart
 
-Real-time Data Integration: Gathers data from multiple financial sources (Yahoo Finance, Finnhub, Alpha Vantage)
+```mermaid
+graph LR
+A[User Query] --> B[Master Agent]
+B --> C[Resolver Agent]
+C -- "Symbols" --> D[Crawler]
+D -- "Raw Data" --> E[Market Agent]
+E -- "Market Summary" --> F[Research Agent]
+F -- "Research Summary" --> G[Analysis Agent]
+G -- "Analysis Results" --> H[Recommender Agent]
+H -- "Final Recommendations" --> I[Final Output]
+B --> D
+B --> E
+B --> F
+B --> G
+B --> H
+E -- "Market Summary" --> G
+C -. "Symbols" .-> I
+E -. "Market Summery" .-> I
+F -. "Research Summery" .-> I
+G -. "Analysis Results" .-> I
 
-Comprehensive Analysis: Technical, fundamental, and market sentiment analysis
-
-RESTful API: FastAPI endpoint for easy integration
-
-Intelligent Symbol Resolution: Automatically resolves company names to ticker symbols
-
-🏗️ System Architecture
-![alt text](final.png)
-
-🚀 Quick Start
-Prerequisites
-Python 3.11+
-API keys for:
-Google Gemini API
-Grok API
-Tavily Search
-Yahoo Finance API
-Finnhub
-Alpha Vantage
-
-🧩 Agent Components
-Master Agent
-Orchestrates the entire analysis pipeline, managing workflow between specialized agents.
-
-Resolver Agent
-Uses DuckDuckGo Search and Tavily to resolve company names to accurate ticker symbols.
-
-Crawler Agent
-Gathers raw financial data from multiple sources:
-
-Yahoo Finance (real-time quotes)
-
-Finnhub (market data)
-
-Alpha Vantage (historical data)
-
-Market Agent
-Analyzes overall market conditions, trends, and macroeconomic factors.
-
-Research Agent
-Conducts in-depth research on specific securities, including:
-
-Financial statements
-
-Industry positioning
-
-Competitive analysis
-
-Analysis Agent
-Performs comprehensive analysis combining:
-
-Technical indicators
-
-Fundamental metrics
-
-Sentiment analysis
-
-Recommender Agent
-Synthesizes all analyses to generate investment recommendations with confidence scores.
+style A fill:#e1d5e7,stroke:#9673a6,stroke-width:2px
+style B fill:#d5e8d4,stroke:#82b366,stroke-width:2px
+style C fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px
+style D fill:#fff2cc,stroke:#d6b656,stroke-width:2px
+style E fill:#f8cecc,stroke:#b85450,stroke-width:2px
+style F fill:#ffe6cc,stroke:#d79b00,stroke-width:2px
+style G fill:#e2d5e7,stroke:#9673a6,stroke-width:2px
+style H fill:#ffcc99,stroke:#ff9900,stroke-width:2px
+style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:3px
