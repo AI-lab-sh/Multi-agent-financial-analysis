@@ -1,7 +1,18 @@
 ## 📊 True Data Flow Diagram
 
-```mermaid
-%% True data flow
+graph LR
+A[User Query] --> B[Master Agent]
+
+%% Master orchestrates all agents
+B --> C[Resolver Agent]
+B --> D[Crawler]
+B --> E[Market Agent]
+B --> F[Research Agent]
+B --> G[Analyst Agent]
+B --> H[Recommender Agent]
+B --> I[Final Output]
+
+%% Data flow
 C -- "Symbols / Entities" --> D
 D -- "Raw Market & Fundamentals" --> E
 E -- "Market Summary" --> F
