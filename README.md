@@ -46,17 +46,7 @@ The system integrates:
 ## 📊 System Architecture
 
 ### High-Level Flow
-```mermaid
-graph LR
-A[User Query] --> B[Master Agent]
 
-B --> C[Resolver Agent]
-B --> D[Crawler]
-B --> E[Market Agent]
-B --> F[Research Agent]
-B --> G[Analyst Agent]
-B --> H[Recommender Agent]
-B --> I[Final Output]
 
 
 
