@@ -5,7 +5,7 @@ It extracts relevant symbols, gathers market and qualitative data, performs deep
 
 The system integrates crawler scripts, multiple LLM-driven agents, and external APIs to deliver high-quality insights for individual investors, analysts, and automated trading tools.
 
-## 📊 True Data Flow Diagram
+## 📊 Data Flow Diagram
 
 ```mermaid
 %% Enlarged diagram for very high visibility
@@ -32,15 +32,15 @@ G -- "Integrated Analysis" --> H
 H -- "Recommendations & Portfolio Plan" --> I
 
 %% Styles with larger font and thicker borders
-style A fill:#e1d5e7,stroke:#9673a6,stroke-width:4px,font-size:48px
-style B fill:#d5e8d4,stroke:#82b366,stroke-width:4px,font-size:48px
-style C fill:#dae8fc,stroke:#6c8ebf,stroke-width:4px,font-size:48px
-style D fill:#fff2cc,stroke:#d6b656,stroke-width:4px,font-size:48px
-style E fill:#f8cecc,stroke:#b85450,stroke-width:4px,font-size:48px
-style F fill:#ffe6cc,stroke:#d79b00,stroke-width:4px,font-size:48px
-style G fill:#e2d5e7,stroke:#9673a6,stroke-width:4px,font-size:48px
-style H fill:#ffcc99,stroke:#ff9900,stroke-width:4px,font-size:48px
-style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:5px,font-size:48px
+style A fill:#e1d5e7,stroke:#9673a6,stroke-width:4px,font-size:60px
+style B fill:#d5e8d4,stroke:#82b366,stroke-width:4px,font-size:60px
+style C fill:#dae8fc,stroke:#6c8ebf,stroke-width:4px,font-size:60px
+style D fill:#fff2cc,stroke:#d6b656,stroke-width:4px,font-size:60px
+style E fill:#f8cecc,stroke:#b85450,stroke-width:4px,font-size:60px
+style F fill:#ffe6cc,stroke:#d79b00,stroke-width:4px,font-size:60px
+style G fill:#e2d5e7,stroke:#9673a6,stroke-width:4px,font-size:60px
+style H fill:#ffcc99,stroke:#ff9900,stroke-width:4px,font-size:60px
+style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:5px,font-size:60px
 ```
 
 ## ⚙️ Agents Overview
