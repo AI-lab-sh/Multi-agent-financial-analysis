@@ -32,8 +32,8 @@ G -- "Integrated Analysis" --> H
 H -- "Recommendations & Portfolio Plan" --> I
 
 %% Styles with larger font and thicker borders
-style A fill:#e1d5e7,stroke:#9673a6,stroke-width:4px,font-size:24px
-style B fill:#d5e8d4,stroke:#82b366,stroke-width:4px,font-size:24px
+style A fill:#e1d5e7,stroke:#9673a6,stroke-width:4px,font-size:36px
+style B fill:#d5e8d4,stroke:#82b366,stroke-width:4px,font-size:36px
 style C fill:#dae8fc,stroke:#6c8ebf,stroke-width:4px,font-size:24px
 style D fill:#fff2cc,stroke:#d6b656,stroke-width:4px,font-size:24px
 style E fill:#f8cecc,stroke:#b85450,stroke-width:4px,font-size:24px
