@@ -5,7 +5,7 @@ It extracts relevant symbols, gathers market and qualitative data, performs deep
 
 The system integrates crawler scripts, multiple LLM-driven agents, and external APIs to deliver high-quality insights for individual investors, analysts, and automated trading tools.
 
-## 📊 Data Flow Diagram
+## 📊 Data Flow 
 
 ![System Architecture Diagram](assets/system_flow.png)
 
