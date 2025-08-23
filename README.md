@@ -8,8 +8,8 @@ The system integrates crawler scripts, multiple LLM-driven agents, and external 
 ## 📊 True Data Flow Diagram
 
 ```mermaid
-%% Enlarged diagram for better visibility
-%% Use bigger font and spacing
+%% Enlarged diagram for very high visibility
+%% Increase node size, font, and spacing for clarity
 graph LR
 A[User Query] --> B[Master Agent]
 
@@ -31,16 +31,16 @@ F -- "Research Summary" --> G
 G -- "Integrated Analysis" --> H
 H -- "Recommendations & Portfolio Plan" --> I
 
-%% Styles with larger font
-style A fill:#e1d5e7,stroke:#9673a6,stroke-width:3px,font-size:18px
-style B fill:#d5e8d4,stroke:#82b366,stroke-width:3px,font-size:18px
-style C fill:#dae8fc,stroke:#6c8ebf,stroke-width:3px,font-size:18px
-style D fill:#fff2cc,stroke:#d6b656,stroke-width:3px,font-size:18px
-style E fill:#f8cecc,stroke:#b85450,stroke-width:3px,font-size:18px
-style F fill:#ffe6cc,stroke:#d79b00,stroke-width:3px,font-size:18px
-style G fill:#e2d5e7,stroke:#9673a6,stroke-width:3px,font-size:18px
-style H fill:#ffcc99,stroke:#ff9900,stroke-width:3px,font-size:18px
-style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:4px,font-size:18px
+%% Styles with larger font and thicker borders
+style A fill:#e1d5e7,stroke:#9673a6,stroke-width:4px,font-size:24px
+style B fill:#d5e8d4,stroke:#82b366,stroke-width:4px,font-size:24px
+style C fill:#dae8fc,stroke:#6c8ebf,stroke-width:4px,font-size:24px
+style D fill:#fff2cc,stroke:#d6b656,stroke-width:4px,font-size:24px
+style E fill:#f8cecc,stroke:#b85450,stroke-width:4px,font-size:24px
+style F fill:#ffe6cc,stroke:#d79b00,stroke-width:4px,font-size:24px
+style G fill:#e2d5e7,stroke:#9673a6,stroke-width:4px,font-size:24px
+style H fill:#ffcc99,stroke:#ff9900,stroke-width:4px,font-size:24px
+style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:5px,font-size:24px
 ```
 
 ## ⚙️ Agents Overview
