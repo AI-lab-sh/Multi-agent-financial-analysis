@@ -43,7 +43,13 @@ style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:3px
 
 ## ⚙️ Agents Overview
 
-### 1. Master Agent
+### 1. User Query
+
+* Can be **natural language**, e.g., "I want to invest in gold industry" or "invest in oil industry".
+* Can also be **direct ticker symbols**, e.g., `AAPL`, `TSLA`.
+* This input is sent to the Master Agent to start the workflow.
+
+### 2. Master Agent
 
 * Orchestrates the entire workflow.
 * Passes data to all agents and handles errors/retries.
@@ -51,27 +57,35 @@ style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:3px
 * **Inputs**: User query
 * **Outputs**: Final consolidated report
 
-### 2. Resolver Agent
+### 3. Resolver Agent
 
 * Extracts tickers, sectors, and keywords from natural language queries or direct ticker inputs.
-* Validates ticker symbols, detects typos or outdated symbols, and provides updated versions.
+* Validates ticker symbols, detects typos, outdated symbols, and misspellings.
 * Uses search tools such as **DuckDuckGo**, **Tavily**, and other market databases to ensure correctness.
 * Sends only verified symbols to the Crawler.
 
-**Example Output (with updated tickers):**
+**Example Output (with updated tickers and misspell handling):**
 
 ```json
 {
-  "symbols": ["AAPL", "MSFT", "GOOGL"],
-  "entities": ["technology", "software"],
+  "symbols": ["AAPL", "MSFT", "META", "TSLA"],
+  "entities": ["technology", "software", "social media", "automotive"],
   "updated_symbols": {
-    "GOOG": "GOOGL"
+    "GOOG": "GOOGL",
+    "FB": "META",
+    "APPL": "AAPL"  
   },
   "confidence": 0.98
 }
 ```
 
-### 3. Crawler
+> **Explanation:**
+>
+> * User input may contain outdated symbols: `FB` (now `META`) or `GOOG` (now `GOOGL`).
+> * User input may contain misspellings: `APPL` corrected to `AAPL`.
+>   Resolver Agent automatically detects and corrects these issues.
+
+### 4. Crawler
 
 * Collects raw market and fundamental data from:
 
@@ -89,7 +103,7 @@ style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:3px
 }
 ```
 
-### 4. Market Agent
+### 5. Market Agent
 
 * Normalizes and analyzes quantitative data.
 * Produces:
@@ -106,7 +120,7 @@ style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:3px
 }
 ```
 
-### 5. Research Agent
+### 6. Research Agent
 
 The ResearchAgent enriches market summaries with qualitative insights.
 
@@ -134,7 +148,7 @@ report = research_agent.analyze(market_summary)
 print(report)
 ```
 
-### 6. Analyst Agent
+### 7. Analyst Agent
 
 * Integrates Market and Research summaries.
 * Performs:
@@ -148,57 +162,11 @@ print(report)
 
 ```json
 {
-  "rankings": ["AAPL", "MSFT", "GOOGL"],
+  "rankings": ["AAPL", "MSFT", "META", "TSLA"],
   "valuations": { "AAPL": {"pe": 25.6, "growth": "high"} }
 }
 ```
 
-### 7. Recommender Agent
+### 8. Recommender Agent
 
-* Converts analysis into investment strategies.
-* Generates:
-
-  * Buy/Hold/Sell recommendations
-  * Portfolio weights and allocation suggestions
-  * Risk mitigation advice
-
-**Example Output:**
-
-```json
-{
-  "recommendations": [
-    {"symbol": "AAPL", "action": "BUY", "weight": 0.35, "entry": "< 170"}
-  ]
-}
-```
-
-## 🌟 Features
-
-* Master-led orchestration
-* Strict data flow separation
-* Quantitative + qualitative integration
-* Portfolio-aware recommendations
-* Structured outputs (JSON + Markdown)
-* Robust error handling and logging
-* **Advanced Resolver Capabilities**:
-
-  * Handles both natural language queries and direct ticker inputs
-  * Detects typos and outdated symbols
-  * Updates tickers using DuckDuckGo, Tavily, and other search tools
-  * Returns `updated_symbols` mapping when symbols have changed
-
-## 🛠 Technology Stack
-
-* Python 3.10+
-* LLM APIs: Groq, Qwen
-* Market Data: Yahoo Finance, Alpha Vantage, Finnhub
-* Search: DuckDuckGo, Tavily
-* Visualization: Mermaid (architecture diagrams)
-
-## 📈 Future Enhancements
-
-* Automated backtesting
-* Expanded data sources (Bloomberg, TradingView)
-* Options/derivatives support
-* Interactive dashboards for insights
-* Portfolio simulation and risk modeling
+* Converts analysis into investment strategies
