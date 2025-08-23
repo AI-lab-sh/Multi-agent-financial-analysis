@@ -168,7 +168,7 @@ This allows our platform to efficiently process user queries, analyze market dat
 
 ## 🌟 Features
 
-* Master-led orchestration
+* Master-led orchestration using **LangChain** to manage LLM-driven agents efficiently
 * Strict data flow separation
 * Quantitative + qualitative integration
 * Portfolio-aware recommendations
