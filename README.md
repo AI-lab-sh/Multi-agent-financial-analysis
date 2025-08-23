@@ -5,7 +5,7 @@ It extracts relevant symbols, gathers market and qualitative data, performs deep
 
 The system integrates crawler scripts, multiple LLM-driven agents, and external APIs to deliver high-quality insights for individual investors, analysts, and automated trading tools.
 
-## 📊 True Data Flow Diagram
+## 📊 Data Flow Diagram
 
 ```mermaid
 graph LR
@@ -169,4 +169,50 @@ print(report)
 
 ### 8. Recommender Agent
 
-* Converts analysis into investment strategies
+* Converts analysis into investment strategies.
+* Generates:
+
+  * Buy/Hold/Sell recommendations
+  * Portfolio weights and allocation suggestions
+  * Risk mitigation advice
+
+**Example Output:**
+
+```json
+{
+  "recommendations": [
+    {"symbol": "AAPL", "action": "BUY", "weight": 0.35, "entry": "< 170"}
+  ]
+}
+```
+
+## 🌟 Features
+
+* Master-led orchestration
+* Strict data flow separation
+* Quantitative + qualitative integration
+* Portfolio-aware recommendations
+* Structured outputs (JSON + Markdown)
+* Robust error handling and logging
+* **Advanced Resolver Capabilities**:
+
+  * Handles both natural language queries and direct ticker inputs
+  * Detects typos, outdated symbols, and misspellings
+  * Updates tickers using DuckDuckGo, Tavily, and other search tools
+  * Returns `updated_symbols` mapping when symbols have changed or were misspelled, e.g., `FB` → `META`, `GOOG` → `GOOGL`, `APPL` → `AAPL`
+
+## 🛠 Technology Stack
+
+* Python 3.10+
+* LLM APIs: Groq, Qwen, **Llama-3.3-70B-Versatile**, **Gemini-2.0-Flash**
+* Market Data: Yahoo Finance, Alpha Vantage, Finnhub
+* Search: DuckDuckGo, Tavily
+* Visualization: Mermaid (architecture diagrams)
+
+## 📈 Future Enhancements
+
+* Automated backtesting
+* Expanded data sources (Bloomberg, TradingView)
+* Options/derivatives support
+* Interactive dashboards for insights
+* Portfolio simulation and risk modeling
