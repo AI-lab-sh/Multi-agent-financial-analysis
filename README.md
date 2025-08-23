@@ -44,71 +44,90 @@ style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:3px
 ## ⚙️ Agents Overview
 
 ### 1. Master Agent
-- Orchestrates the entire workflow.
-- Passes data to all agents and handles errors/retries.
-- Aggregates outputs for the Final Report.
-- **Inputs**: User query  
-- **Outputs**: Final consolidated report
+
+* Orchestrates the entire workflow.
+* Passes data to all agents and handles errors/retries.
+* Aggregates outputs for the Final Report.
+* **Inputs**: User query
+* **Outputs**: Final consolidated report
 
 ### 2. Resolver Agent
-- Extracts tickers, sectors, and keywords from natural language queries.
-- Sends symbols only to the Crawler.
 
-**Example Output:**
+* Extracts tickers, sectors, and keywords from natural language queries or direct ticker inputs.
+* Validates ticker symbols, detects typos or outdated symbols, and provides updated versions.
+* Uses search tools such as **DuckDuckGo**, **Tavily**, and other market databases to ensure correctness.
+* Sends only verified symbols to the Crawler.
+
+**Example Output (with updated tickers):**
+
 ```json
 {
-  "symbols": ["XOM", "CVX", "OXY"],
-  "entities": ["energy", "oil"],
-  "confidence": 0.95
+  "symbols": ["AAPL", "MSFT", "GOOGL"],
+  "entities": ["technology", "software"],
+  "updated_symbols": {
+    "GOOG": "GOOGL"
+  },
+  "confidence": 0.98
 }
 ```
 
 ### 3. Crawler
-- Collects raw market and fundamental data from:
-  - Yahoo Finance
-  - Alpha Vantage
-  - Finnhub
-- Sends raw data only to Market Agent.
+
+* Collects raw market and fundamental data from:
+
+  * Yahoo Finance
+  * Alpha Vantage
+  * Finnhub
+* Sends raw data only to Market Agent.
 
 **Example Output:**
+
 ```json
 {
-  "XOM": { "ohlcv": [...], "fundamentals": {...} },
-  "CVX": { "ohlcv": [...], "fundamentals": {...} }
+  "AAPL": { "ohlcv": [...], "fundamentals": {...} },
+  "MSFT": { "ohlcv": [...], "fundamentals": {...} }
 }
 ```
 
 ### 4. Market Agent
-- Normalizes and analyzes quantitative data.
-- Produces:
-  - Technical trends, volatility, anomalies
-  - Clean summaries
-- Sends output to Research Agent and Analyst Agent.
+
+* Normalizes and analyzes quantitative data.
+* Produces:
+
+  * Technical trends, volatility, anomalies
+  * Clean summaries
+* Sends output to Research Agent and Analyst Agent.
 
 **Example Output:**
+
 ```json
 {
-  "XOM": { "trend": "up", "volatility": 0.21, "signals": {"rsi": 58} }
+  "AAPL": { "trend": "up", "volatility": 0.18, "signals": {"rsi": 62} }
 }
 ```
 
 ### 5. Research Agent
+
 The ResearchAgent enriches market summaries with qualitative insights.
 
 **Responsibilities:**
-- Use Market Summary as input.
-- For each symbol:
-  - Gather insights from ≥5 sources (news, analyst reports, regulatory updates, sector trends)
-  - Identify key events, risks, opportunities
-  - Produce structured, neutral report:
-    - Section 1: Industry & Macro context
-    - Section 2: Company-specific updates
-    - Section 3: Risk and opportunity highlights
 
-**Inputs**: Market Summary  
+* Use Market Summary as input.
+* For each symbol:
+
+  * Gather insights from ≥5 sources (news, analyst reports, regulatory updates, sector trends)
+  * Identify key events, risks, opportunities
+  * Produce structured, neutral report:
+
+    * Section 1: Industry & Macro context
+    * Section 2: Company-specific updates
+    * Section 3: Risk and opportunity highlights
+
+**Inputs**: Market Summary
 **Outputs**: Structured research briefs
 
 **Example Use:**
+
 ```python
 research_agent = ResearchAgent()
 report = research_agent.analyze(market_summary)
@@ -116,55 +135,70 @@ print(report)
 ```
 
 ### 6. Analyst Agent
-- Integrates Market and Research summaries.
-- Performs:
-  - Valuation metrics (P/E, EV/EBITDA, growth)
-  - Peer and sector comparison
-  - Risk assessment and red-flag identification
-- Produces integrated analysis for the Recommender Agent.
+
+* Integrates Market and Research summaries.
+* Performs:
+
+  * Valuation metrics (P/E, EV/EBITDA, growth)
+  * Peer and sector comparison
+  * Risk assessment and red-flag identification
+* Produces integrated analysis for the Recommender Agent.
 
 **Example Output:**
+
 ```json
 {
-  "rankings": ["XOM", "CVX", "OXY"],
-  "valuations": { "XOM": {"pe": 12.4, "growth": "moderate"} }
+  "rankings": ["AAPL", "MSFT", "GOOGL"],
+  "valuations": { "AAPL": {"pe": 25.6, "growth": "high"} }
 }
 ```
 
 ### 7. Recommender Agent
-- Converts analysis into investment strategies.
-- Generates:
-  - Buy/Hold/Sell recommendations
-  - Portfolio weights and allocation suggestions
-  - Risk mitigation advice
+
+* Converts analysis into investment strategies.
+* Generates:
+
+  * Buy/Hold/Sell recommendations
+  * Portfolio weights and allocation suggestions
+  * Risk mitigation advice
 
 **Example Output:**
+
 ```json
 {
   "recommendations": [
-    {"symbol": "XOM", "action": "BUY", "weight": 0.30, "entry": "< 108"}
+    {"symbol": "AAPL", "action": "BUY", "weight": 0.35, "entry": "< 170"}
   ]
 }
 ```
 
 ## 🌟 Features
-- Master-led orchestration
-- Strict data flow separation
-- Quantitative + qualitative integration
-- Portfolio-aware recommendations
-- Structured outputs (JSON + Markdown)
-- Robust error handling and logging
+
+* Master-led orchestration
+* Strict data flow separation
+* Quantitative + qualitative integration
+* Portfolio-aware recommendations
+* Structured outputs (JSON + Markdown)
+* Robust error handling and logging
+* **Advanced Resolver Capabilities**:
+
+  * Handles both natural language queries and direct ticker inputs
+  * Detects typos and outdated symbols
+  * Updates tickers using DuckDuckGo, Tavily, and other search tools
+  * Returns `updated_symbols` mapping when symbols have changed
 
 ## 🛠 Technology Stack
-- Python 3.10+
-- LLM APIs: Groq, Qwen
-- Market Data: Yahoo Finance, Alpha Vantage, Finnhub
-- Search: DuckDuckGo, Tavily
-- Visualization: Mermaid (architecture diagrams)
+
+* Python 3.10+
+* LLM APIs: Groq, Qwen
+* Market Data: Yahoo Finance, Alpha Vantage, Finnhub
+* Search: DuckDuckGo, Tavily
+* Visualization: Mermaid (architecture diagrams)
 
 ## 📈 Future Enhancements
-- Automated backtesting
-- Expanded data sources (Bloomberg, TradingView)
-- Options/derivatives support
-- Interactive dashboards for insights
-- Portfolio simulation and risk modeling
+
+* Automated backtesting
+* Expanded data sources (Bloomberg, TradingView)
+* Options/derivatives support
+* Interactive dashboards for insights
+* Portfolio simulation and risk modeling
