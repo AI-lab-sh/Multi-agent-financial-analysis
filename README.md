@@ -1,5 +1,4 @@
-## 📊 True Data Flow Diagram
-
+```mermaid
 graph LR
 A[User Query] --> B[Master Agent]
 
