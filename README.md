@@ -81,7 +81,7 @@ style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:3px
 
 > **Explanation:**
 >
-> * User input may contain outdated symbols: `FB` (now `META`) or `GOOG` (now `GOOGL`).
+> * User input may contain outdated symbols: `FB` (now `META`) or `GOOG` (now `GOOGL`) or `kind` (now `NXDR`).
 > * User input may contain misspellings: `APPL` corrected to `AAPL`.
 >   Resolver Agent automatically detects and corrects these issues.
 
