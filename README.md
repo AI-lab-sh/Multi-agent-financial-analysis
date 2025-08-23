@@ -31,4 +31,32 @@ style G fill:#e2d5e7,stroke:#9673a6,stroke-width:2px
 style H fill:#ffcc99,stroke:#ff9900,stroke-width:2px
 style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:3px
 
+# 🔍 Multi-Agent Financial Intelligence Platform
+
+This project implements a **multi-agent financial intelligence system** designed to handle **natural language investment queries**.  
+It extracts relevant symbols, gathers market and qualitative data, performs deep analysis, and delivers **personalized, actionable recommendations**.
+
+The system integrates:
+- 📡 Crawler scripts  
+- 🧠 Multiple LLM-driven agents  
+- 🔗 External APIs  
+
+---
+
+## 📊 System Architecture
+
+### High-Level Flow
+```mermaid
+graph LR
+A[User Query] --> B[Master Agent]
+
+B --> C[Resolver Agent]
+B --> D[Crawler]
+B --> E[Market Agent]
+B --> F[Research Agent]
+B --> G[Analyst Agent]
+B --> H[Recommender Agent]
+B --> I[Final Output]
+
+
 
