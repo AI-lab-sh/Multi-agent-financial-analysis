@@ -5,22 +5,6 @@ It extracts relevant symbols, gathers market and qualitative data, performs deep
 
 The system integrates crawler scripts, multiple LLM-driven agents, and external APIs to deliver high-quality insights for individual investors, analysts, and automated trading tools.
 
-## 📊 System Flow
-
-```mermaid
-graph LR
-A[User Query] --> B[Master Agent]
-
-%% Master orchestrates but does not pass data between agents
-B --> C[Resolver Agent]
-B --> D[Crawler]
-B --> E[Market Agent]
-B --> F[Research Agent]
-B --> G[Analyst Agent]
-B --> H[Recommender Agent]
-B --> I[Final Output]
-```
-
 ## 📊 True Data Flow Diagram
 
 ```mermaid
