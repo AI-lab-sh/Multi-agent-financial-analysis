@@ -1,6 +1,6 @@
 # 🔍 System Architecture Overview
 
-This project implements a multi-agent financial intelligence platform designed to handle natural language investment queries.
+This project implements a multi-agent financial intelligence platform  designed to handle natural language investment queries,using open-souce LLMs and Langchain framework. 
 It extracts relevant symbols, gathers market and qualitative data, performs deep analysis, and delivers personalized, actionable recommendations.
 
 The system integrates crawler scripts, multiple LLM-driven agents, and external APIs to deliver high-quality insights for individual investors, analysts, and automated trading tools.
