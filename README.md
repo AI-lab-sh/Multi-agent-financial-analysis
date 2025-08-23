@@ -68,12 +68,13 @@ style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:3px
 
 ```json
 {
-  "symbols": ["AAPL", "MSFT", "META", "TSLA"],
+  "symbols": ["AAPL", "MSFT", "META", "TSLA", "KIND"],
   "entities": ["technology", "software", "social media", "automotive"],
   "updated_symbols": {
     "GOOG": "GOOGL",
     "FB": "META",
-    "APPL": "AAPL"  
+    "APPL": "AAPL",
+    "KIND" : "NXDR" 
   },
   "confidence": 0.98
 }
@@ -81,7 +82,7 @@ style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:3px
 
 > **Explanation:**
 >
-> * User input may contain outdated symbols: `FB` (now `META`) or `GOOG` (now `GOOGL`).
+> * User input may contain outdated symbols: `FB` (now `META`) or `GOOG` (now `GOOGL`) or `KINDS` (now `NXDR`).
 > * User input may contain misspellings: `APPL` corrected to `AAPL`.
 >   Resolver Agent automatically detects and corrects these issues.
 
