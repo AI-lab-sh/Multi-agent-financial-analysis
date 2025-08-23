@@ -1,3 +1,4 @@
+import os
 from agents.crawler import Crawler
 from agents.market_agent import MarketAgent
 from agents.research_agent import ResearchAgent
@@ -5,16 +6,16 @@ from agents.analyst_agent import AnalystAgent
 from agents.recommender_agent import RecommenderAgent
 from agents.resolver_agent import ResolverAgent
 from dotenv import load_dotenv
-import os
 from utils.logging import logger
+from textwrap import dedent
+import json 
+
 
 # Load .env
 #load_dotenv("/Users/shima/PycharmProjects/finance-agents/app/.env")
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.abspath(os.path.join(BASE_DIR, "../app",".env")))
 
-import json
-from utils.logging import logger
 
 class MasterAgent:
     """

@@ -1,68 +1,187 @@
-A multi-agent financial analysis system built using LangChain and FastAPI. Users can input a ticker symbol or a natural language query like "oil industry" or "gold industry". The system orchestrates multiple agents to fetch, analyze, and provide actionable financial insights.# Multi-agent-financial-analysis
+# 🔍 System Architecture Overview
 
-🌟 Features
-Natural Language Processing: Accepts both ticker symbols and natural language queries (e.g., "oil industry", "tech stocks")
+This project implements a multi-agent financial intelligence platform designed to handle natural language investment queries.
+It extracts relevant symbols, gathers market and qualitative data, performs deep analysis, and delivers personalized, actionable recommendations.
 
-Multi-Agent Architecture: Specialized agents for each stage of financial analysis
+The system integrates crawler scripts, multiple LLM-driven agents, and external APIs to deliver high-quality insights for individual investors, analysts, and automated trading tools.
 
-Real-time Data Integration: Gathers data from multiple financial sources (Yahoo Finance, Finnhub, Alpha Vantage)
+## 📊 Data Flow Diagram
 
-Comprehensive Analysis: Technical, fundamental, and market sentiment analysis
+![System Architecture Diagram](assets/system_flow.png)
 
-RESTful API: FastAPI endpoint for easy integration
+## ⚙️ Agents Overview
 
-Intelligent Symbol Resolution: Automatically resolves company names to ticker symbols
+### 1. User Query
 
-🏗️ System Architecture
-![alt text](final.png)
+* Can be **natural language**, e.g., "I want to invest in gold industry" or "invest in oil industry".
+* Can also be **direct ticker symbols**, e.g., `AAPL`, `TSLA`.
+* This input is sent to the Master Agent to start the workflow.
 
-🚀 Quick Start
-Prerequisites
-Python 3.11+
-API keys for:
-Google Gemini API
-Grok API
-Tavily Search
-Yahoo Finance API
-Finnhub
-Alpha Vantage
+### 2. Master Agent
 
-🧩 Agent Components
-Master Agent
-Orchestrates the entire analysis pipeline, managing workflow between specialized agents.
+* Orchestrates the entire workflow.
+* Passes data to all agents and handles errors/retries.
+* Aggregates outputs for the Final Report.
+* **Inputs**: User query
+* **Outputs**: Final consolidated report
 
-Resolver Agent
-Uses DuckDuckGo Search and Tavily to resolve company names to accurate ticker symbols.
+### 3. Resolver Agent
 
-Crawler Agent
-Gathers raw financial data from multiple sources:
+* Extracts tickers, sectors, and keywords from natural language queries or direct ticker inputs.
+* Validates ticker symbols, detects typos, outdated symbols, and misspellings.
+* Uses search tools such as **DuckDuckGo**, **Tavily**, and other market databases to ensure correctness.
+* Sends only verified symbols to the Crawler.
 
-Yahoo Finance (real-time quotes)
+**Example Output (with updated tickers and misspell handling):**
 
-Finnhub (market data)
+```json
+{
+  "symbols": ["AAPL", "MSFT", "META", "TSLA", "KIND"],
+  "entities": ["technology", "software", "social media", "automotive"],
+  "updated_symbols": {
+    "GOOG": "GOOGL",
+    "FB": "META",
+    "APPL": "AAPL",
+    "KIND" : "NXDR" 
+  },
+  "confidence": 0.98
+}
+```
 
-Alpha Vantage (historical data)
+> **Explanation:**
+>
+> * User input may contain outdated symbols: `FB` (now `META`) or `GOOG` (now `GOOGL`) or `KINDS` (now `NXDR`).
+> * User input may contain misspellings: `APPL` corrected to `AAPL`.
+>   Resolver Agent automatically detects and corrects these issues.
 
-Market Agent
-Analyzes overall market conditions, trends, and macroeconomic factors.
+### 4. Crawler
 
-Research Agent
-Conducts in-depth research on specific securities, including:
+* Collects raw market and fundamental data from:
 
-Financial statements
+  * Yahoo Finance
+  * Alpha Vantage
+  * Finnhub
+* Sends raw data only to Market Agent.
+* **Security Feature:** If Python code is found in crawled data, it is ignored and not executed.
 
-Industry positioning
+**Example Output:**
 
-Competitive analysis
+```json
+{
+  "AAPL": { "ohlcv": [...], "fundamentals": [...] },
+  "MSFT": { "ohlcv": [...], "fundamentals": [...] }
+}
+```
 
-Analysis Agent
-Performs comprehensive analysis combining:
+### 5. Market Agent
 
-Technical indicators
+* Normalizes and analyzes quantitative data.
+* Produces:
 
-Fundamental metrics
+  * Technical trends, volatility, anomalies
+  * Clean summaries
+* Sends output to Research Agent and Analyst Agent.
 
-Sentiment analysis
+**Example Output:**
 
-Recommender Agent
-Synthesizes all analyses to generate investment recommendations with confidence scores.
+```json
+{
+  "AAPL": { "trend": "up", "volatility": 0.18, "signals": {"rsi": 62} }
+}
+```
+
+### 6. Research Agent
+
+The ResearchAgent enriches market summaries with qualitative insights.
+
+**Responsibilities:**
+
+* Use Market Summary as input.
+* For each symbol:
+
+  * Gather insights from ≥5 sources (news, analyst reports, regulatory updates, sector trends)
+  * Identify key events, risks, opportunities
+  * Produce structured, neutral report:
+
+    * Section 1: Industry & Macro context
+    * Section 2: Company-specific updates
+    * Section 3: Risk and opportunity highlights
+
+**Inputs**: Market Summary
+**Outputs**: Structured research briefs
+
+**Example Use:**
+
+```python
+research_agent = ResearchAgent()
+report = research_agent.analyze(market_summary)
+print(report)
+```
+
+### 7. Analyst Agent
+
+* Integrates Market and Research summaries.
+* Performs:
+
+  * Valuation metrics (P/E, EV/EBITDA, growth)
+  * Peer and sector comparison
+  * Risk assessment and red-flag identification
+* Produces integrated analysis for the Recommender Agent.
+
+**Example Output:**
+
+```json
+{
+  "rankings": ["AAPL", "MSFT", "META", "TSLA"],
+  "valuations": { "AAPL": {"pe": 25.6, "growth": "high"} }
+}
+```
+
+### 8. Recommender Agent
+
+* Converts analysis into investment strategies.
+* Generates:
+
+  * Buy/Hold/Sell recommendations
+  * Portfolio weights and allocation suggestions
+  * Risk mitigation advice
+
+**Example Output:**
+
+```json
+{
+  "recommendations": [
+    {"symbol": "AAPL", "action": "BUY", "weight": 0.35, "entry": "< 170"}
+  ]
+}
+```
+
+## 🌟 Features
+
+* Master-led orchestration
+* Strict data flow separation
+* Quantitative + qualitative integration
+* Portfolio-aware recommendations
+* Structured outputs (JSON + Markdown)
+* Robust error handling and logging
+* Ignores Python code in outputs or crawled data for security reasons; LLMs extract information directly without execution
+* Handles both natural language queries and direct ticker inputs
+* Detects typos, outdated symbols, and misspellings
+* Updates tickers using DuckDuckGo, Tavily, and other search tools
+* Returns `updated_symbols` mapping when symbols have changed or were misspelled, e.g., `FB` → `META`, `GOOG` → `GOOGL`, `APPL` → `AAPL`
+
+## 🛠 Technology Stack
+
+* Python 3.10+
+* LLM APIs: Groq, Qwen, **Llama-3.3-70B-Versatile**, **Gemini-2.0-Flash**
+* Market Data: Yahoo Finance, Alpha Vantage, Finnhub
+* Search: DuckDuckGo, Tavily
+* Visualization: Mermaid (architecture diagrams)
+
+## 📈 Future Enhancements
+
+* Automated backtesting
+* Expanded data sources (Bloomberg, TradingView)
+* Options/derivatives support
+* Interactive dashboards for insights
+* Portfolio simulation and risk modeling

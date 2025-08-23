@@ -160,3 +160,18 @@ def chunk_text(text: str, max_input_tokens: int = 10000) -> list[str]:
         chunks.append("\n".join(current))
 
     return chunks
+
+def remove_code_blocks(text: str) -> str:
+    """
+    Removes code blocks and inline code from text.
+    """
+    # Remove triple-backtick code blocks
+    text = re.sub(r'```.*?```', '', text, flags=re.DOTALL)
+
+    # Remove indented code blocks (4 spaces at line start)
+    text = re.sub(r'(?:\n {4}.*)+', '', text)
+
+    # Remove inline code `like_this`
+    text = re.sub(r'`[^`]+`', '', text)
+
+    return text.strip()
