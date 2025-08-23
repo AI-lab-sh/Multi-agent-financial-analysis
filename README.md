@@ -102,8 +102,8 @@ style I fill:#c3d6a3,stroke:#3c7e2e,stroke-width:5px,font-size:60px
 
 ```json
 {
-  "AAPL": { "ohlcv": [...], "fundamentals": {...} },
-  "MSFT": { "ohlcv": [...], "fundamentals": {...} }
+  "AAPL": { "ohlcv": [/* OHLCV data array */], "fundamentals": { /* fundamental metrics */ } },
+  "MSFT": { "ohlcv": [/* OHLCV data array */], "fundamentals": { /* fundamental metrics */ } }
 }
 ```
 
