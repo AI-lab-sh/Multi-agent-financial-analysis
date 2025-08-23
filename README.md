@@ -1,17 +1,6 @@
-📊 System Flow
+## 📊 True Data Flow Diagram
 
-graph LR
-A[User Query] --> B[Master Agent]
-
-%% Master orchestrates but does not pass data between agents
-B --> C[Resolver Agent]
-B --> D[Crawler]
-B --> E[Market Agent]
-B --> F[Research Agent]
-B --> G[Analyst Agent]
-B --> H[Recommender Agent]
-B --> I[Final Output]
-
+```mermaid
 %% True data flow
 C -- "Symbols / Entities" --> D
 D -- "Raw Market & Fundamentals" --> E
