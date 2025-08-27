@@ -155,11 +155,6 @@ print(report)
   ]
 }
 ```
-## 🧩 LLM Orchestration
-
-We use **MasterAgent** to manage LLM-driven agents in the platform. LangChain provides:
-
-This allows our platform to efficiently process user queries, analyze market data, and generate actionable investment recommendations.
 
 ## 🌟 Features
 
