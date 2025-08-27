@@ -176,7 +176,7 @@ print(report)
 * LLM APIs: Groq, Qwen, **Llama-3.3-70B-Versatile**, **Gemini-2.0-Flash**
 * Market Data: Yahoo Finance, Alpha Vantage, Finnhub
 * Search: DuckDuckGo, Tavily
-* Visualization: Mermaid (architecture diagrams)
+
 
 ## 📈 Future Enhancements
 
