@@ -157,18 +157,13 @@ print(report)
 ```
 ## 🧩 LLM Orchestration
 
-We use **[LangChain](https://www.langchain.com/)** to manage LLM-driven agents in the platform. LangChain provides:
-
-- Structured chaining of agents for financial analysis
-- Integration with external APIs and tools
-- Context management and memory for multi-step queries
-- Simplified error handling and retry logic
+We use **MasterAgent** to manage LLM-driven agents in the platform. LangChain provides:
 
 This allows our platform to efficiently process user queries, analyze market data, and generate actionable investment recommendations.
 
 ## 🌟 Features
 
-* Master-led orchestration using **LangChain** to manage LLM-driven agents efficiently
+* Master-led orchestration to manage LLM-driven agents efficiently
 * Strict data flow separation
 * Quantitative + qualitative integration
 * Portfolio-aware recommendations
